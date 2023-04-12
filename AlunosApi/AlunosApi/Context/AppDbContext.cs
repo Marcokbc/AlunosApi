@@ -1,9 +1,11 @@
 ﻿using AlunosApi.Models;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace AlunosApi.Context
 {
-    public class AppDbContext : DbContext
+    public class AppDbContext : IdentityDbContext<IdentityUser>
     {
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
@@ -11,22 +13,23 @@ namespace AlunosApi.Context
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Aluno> ().HasData(
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Aluno>().HasData(
                 new Aluno
                 {
                     Id = 1,
-                    Name = "Marco",
-                    Email = "marco@yahoo.com",
-                    Age = 20
+                    Name = "Maria da Penha",
+                    Email = "mariapenha@yahoo.com",
+                    Age = 23
                 },
                 new Aluno
                 {
                     Id = 2,
                     Name = "Manuel Bueno",
-                    Email = "manuel@yahoo.com",
+                    Email = "manuelbueno@yahoo.com",
                     Age = 22
                 }
-                );
+            );
         }
     }
 }
